@@ -41,3 +41,32 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+import { sessions, userSession } from 'cypress/mock';
+
+Cypress.Commands.add(
+  'login',
+  (email: string, password: string, admin?: boolean) => {
+    cy.visit('/login');
+
+    cy.intercept('POST', '/api/auth/login', {
+      body: {
+        ...userSession,
+        admin: admin,
+      },
+    });
+
+    cy.intercept(
+      {
+        method: 'GET',
+        url: '/api/session',
+      },
+      [...sessions]
+    ).as('session');
+
+    cy.get('input[formControlName=email]').type(email);
+    cy.get('input[formControlName=password]').type(`${password}{enter}{enter}`);
+
+    cy.url().should('include', '/sessions');
+  }
+);

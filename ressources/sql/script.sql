@@ -37,8 +37,8 @@ ALTER TABLE `PARTICIPATE` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`);
 ALTER TABLE `PARTICIPATE` ADD FOREIGN KEY (`session_id`) REFERENCES `SESSIONS` (`id`);
 
 INSERT INTO TEACHERS (first_name, last_name)
-VALUES ('Margot', 'DELAHAYE'),
-       ('Hélène', 'THIERCELIN');
+VALUES ("Margot", "DELAHAYE"),
+       ("Hélène", "THIERCELIN");
 
 
 INSERT INTO USERS (first_name, last_name, admin, email, password)
