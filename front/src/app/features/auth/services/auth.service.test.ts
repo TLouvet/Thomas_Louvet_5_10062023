@@ -39,9 +39,6 @@ describe('AuthService', () => {
     expect(request.request.body).toEqual(form);
     expect(request.request.method).toEqual('POST');
     request.flush({});
-    // Tu dis que tu expect la requete une fois sur une methode post
-
-    // Tu flush selon la response que tu veux
   });
 
   it('unit tests login', () => {

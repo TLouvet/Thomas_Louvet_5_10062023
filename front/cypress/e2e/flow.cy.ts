@@ -164,6 +164,7 @@ describe('admin flow', () => {
     cy.get('.item').contains('New session').should('exist');
   });
 
+  // Continuer ?
   it('should see the details of the new session', () => {
     cy.intercept('GET', '/api/session/3', {
       body: {
@@ -178,7 +179,5 @@ describe('admin flow', () => {
     cy.intercept('GET', '/api/teacher/1', {
       body: teacherMock,
     }).as('teacher');
-
-    // go to the details page for the new session
   });
 });

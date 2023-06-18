@@ -99,6 +99,23 @@ describe('FormComponent', () => {
     expect(spy).toHaveBeenCalledWith(['/sessions']);
   });
 
+  it('should show an error message on the required fields if they are empty and the form is submitted', () => {
+    const formElement: HTMLElement = fixture.nativeElement;
+    const submitButton = formElement.querySelector<HTMLButtonElement>(
+      'button[type="submit"]'
+    );
+    if (!submitButton) {
+      throw new Error('Submit button not found');
+    }
+
+    submitButton.click();
+    fixture.detectChanges();
+
+    expect(
+      formElement.querySelectorAll('mat-form-field.ng-invalid')
+    ).toHaveLength(4);
+  });
+
   it('should get the values of the sessions if updating', async () => {
     jest.spyOn(router, 'url', 'get').mockReturnValue('/update');
     jest.spyOn(sessionApiService, 'detail').mockReturnValue(of(session));
