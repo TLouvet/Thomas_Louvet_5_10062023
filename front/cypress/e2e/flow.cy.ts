@@ -179,5 +179,23 @@ describe('admin flow', () => {
     cy.intercept('GET', '/api/teacher/1', {
       body: teacherMock,
     }).as('teacher');
+
+    cy.get('mat-card').last().contains('Detail').last().click();
+    cy.url().should('include', '/sessions/detail/3');
+
+    cy.get('div').contains('New session description').should('exist');
+  });
+
+  it("should delete the new session and see it doesn't exist anymore", () => {
+    cy.intercept('DELETE', '/api/session/3', {});
+    cy.intercept('GET', '/api/session', {
+      body: sessions,
+    }).as('sessions');
+
+    cy.get('button').contains('Delete').click();
+
+    cy.url().should('contain', '/sessions');
+    cy.get('.item').should('have.length', 2);
+    cy.get('.item').contains('New session').should('not.exist');
   });
 });
